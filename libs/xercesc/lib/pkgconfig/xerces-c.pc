@@ -1,0 +1,11 @@
+prefix=/nics/c/home/ywang254/Git/gcam/gcam-core/libs/xercesc
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: Xerces-C++
+Description: Validating XML parser library for C++
+Version: 3.2.3
+Libs: -L${libdir} -lxerces-c
+Libs.private: -L/nics/c/home/ywang254/.conda/envs/myenv/lib -lcurl
+Cflags: -I${includedir}

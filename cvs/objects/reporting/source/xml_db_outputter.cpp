@@ -117,7 +117,7 @@
 
 // Whether to write a text file with the contents that are to be inserted
 // into the XML database.
-#define DEBUG_XML_DB 0
+#define DEBUG_XML_DB 1
 
 #ifdef DEBUG_XML_DB
 #include <boost/iostreams/tee.hpp>
