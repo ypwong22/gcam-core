@@ -67,6 +67,8 @@
 #include "util/base/include/manage_state_variables.hpp"
 #include "util/base/include/supply_demand_curve_saver.h"
 
+#include "degree_days/include/degree_days_feedback.h"
+
 #if GCAM_PARALLEL_ENABLED && PARALLEL_DEBUG
 #include <stdlib.h>
 #include <tbb/tick_count.h>
@@ -174,6 +176,9 @@ bool Scenario::XMLParse( const DOMNode* node ){
         else if ( nodeName == SupplyDemandCurveSaver::getXMLNameStatic()) {
             parseContainerNode( curr, mModelFeedbacks, new SupplyDemandCurveSaver );
         }
+	else if ( nodeName == DegreeDaysFeedback::getXMLNameStatic()) {
+            parseContainerNode( curr, mModelFeedbacks, new DegreeDaysFeedback );
+	}
         
         /*!
          * \warning Parsing of solution algorithms are a special case.  They must be 
