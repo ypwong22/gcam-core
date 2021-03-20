@@ -4,9 +4,9 @@ SOBJ=so
 A=a
 LIBPREFIX=lib
 LIB_EXT_ORDER=.68.2
-COMPILE=gcc -D_REENTRANT  -DU_HAVE_ELF_H=1 -DU_HAVE_STRTOD_L=1 -DU_HAVE_XLOCALE_H=1  -DU_ATTRIBUTE_DEPRECATED= -O3  -std=c11 -Wall -pedantic -Wshadow -Wpointer-arith -Wmissing-prototypes -Wwrite-strings   -c
-LIBFLAGS=-I/nics/c/home/ywang254/Git/gcam/gcam-core/libs/icu/include -DPIC -fPIC
-GENLIB=gcc -O3  -std=c11 -Wall -pedantic -Wshadow -Wpointer-arith -Wmissing-prototypes -Wwrite-strings    -shared -Wl,-Bsymbolic
+COMPILE=gcc -D_REENTRANT  -DU_HAVE_ELF_H=1 -DU_HAVE_STRTOD_L=1 -DU_HAVE_XLOCALE_H=1  -DU_ATTRIBUTE_DEPRECATED= -O3 -m64 -std=c11 -Wall -pedantic -Wshadow -Wpointer-arith -Wmissing-prototypes -Wwrite-strings   -c
+LIBFLAGS=-I/lustre/haven/proj/UTK0134//gcam/gcam-core/libs/icu/include -DPIC -fPIC
+GENLIB=gcc -O3 -m64 -std=c11 -Wall -pedantic -Wshadow -Wpointer-arith -Wmissing-prototypes -Wwrite-strings    -shared -Wl,-Bsymbolic
 LDICUDTFLAGS=-nodefaultlibs -nostdlib
 LD_SONAME=-Wl,-soname -Wl,
 RPATH_FLAGS=

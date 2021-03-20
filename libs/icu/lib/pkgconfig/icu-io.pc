@@ -8,7 +8,7 @@ CFLAGS =
 CXXFLAGS =  -std=c++11
 # DEFS only contains those UCONFIG_CPPFLAGS which are not auto-set by platform.h
 DEFS = 
-prefix = /nics/c/home/ywang254/Git/gcam/gcam-core/libs/icu
+prefix = /lustre/haven/proj/UTK0134//gcam/gcam-core/libs/icu
 exec_prefix = ${prefix}
 #bindir = ${exec_prefix}/bin
 libdir = ${exec_prefix}/lib

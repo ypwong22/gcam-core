@@ -1,4 +1,4 @@
-prefix=/nics/c/home/ywang254/Git/gcam/gcam-core/libs/xercesc
+prefix=/lustre/haven/proj/UTK0134//gcam/gcam-core/libs/xercesc
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include

@@ -53,7 +53,7 @@ loaddefs()
 # etc.  If ICU is not installed in this directory, you must change the
 # following line.  There should exist ${prefix}/include/unicode/utypes.h
 # for example.
-default_prefix="/nics/c/home/ywang254/Git/gcam/gcam-core/libs/icu"
+default_prefix="/lustre/haven/proj/UTK0134//gcam/gcam-core/libs/icu"
 if [ "x${prefix}" = "x" ]; then prefix="$default_prefix"; fi
 exec_prefix="${prefix}"
 libdir="${exec_prefix}/lib"
@@ -206,7 +206,7 @@ AR="ar"
 # initial tab keeps it out of the shell version.
 ARFLAGS=" ${ARFLAGS}"
 CC="gcc"
-CPP="icc -E"
+CPP="gcc -E"
 CFLAGS=""
 CPPFLAGS="-I${prefix}/include"
 CXXFLAGS="-std=c++11"

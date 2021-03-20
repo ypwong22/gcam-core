@@ -153,6 +153,10 @@ bool Scenario::XMLParse( const DOMNode* node ){
         DOMNode* curr = nodeList->item( i );
         string nodeName = XMLHelper<string>::safeTranscode( curr->getNodeName() );
 
+	ILogger& mainLog = ILogger::getLogger( "main_log" );
+	mainLog.setLevel( ILogger::NOTICE );
+	mainLog << nodeName << endl;
+
         if( nodeName == "#text" ) {
             continue;
         }

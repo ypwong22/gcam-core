@@ -1,4 +1,4 @@
-export GCAM_ROOT=/nics/c/home/ywang254/Git/gcam/gcam-core
+export GCAM_ROOT=${PROJDIR}/gcam/gcam-core
 module load gcc/6.3.0
 
 ##############################################################################
@@ -34,9 +34,10 @@ make install
 ##############################################################################
 # Install ICU because JAVA is disabled
 ##############################################################################
-export ICU_SRC=/nics/c/home/ywang254/Git/gcam/icu-release-68-2/icu4c/source
+export ICU_SRC=${PROJDIR}/gcam/icu-release-68-2/icu4c/source
 export ICU_INSTALL=${GCAM_ROOT}/libs/icu
 
+cd ${ICU_SRC}
 ./runConfigureICU Linux/GCC --prefix=${ICU_INSTALL}
 make
 make check 
@@ -77,6 +78,7 @@ export BOOST_LIB=${GCAM_ROOT}/libs/boost-lib/stage/lib
 export XERCES_INCLUDE=${GCAM_ROOT}/libs/xercesc/include
 export XERCES_LIB=${GCAM_ROOT}/libs/xercesc/lib
 cd ${GCAM_ROOT}/cvs/objects/build/linux
+make clean # Attention! This clean does not clean the hector folder; Need to do manually. 
 make gcam -j 8
 
 

@@ -27,7 +27,7 @@
 # etc.  If ICU is not installed in this directory, you must change the
 # following line.  There should exist $(prefix)/include/unicode/utypes.h
 # for example.
-prefix = /nics/c/home/ywang254/Git/gcam/gcam-core/libs/icu
+prefix = /lustre/haven/proj/UTK0134//gcam/gcam-core/libs/icu
 exec_prefix = ${prefix}
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
@@ -185,7 +185,7 @@ AR = ar
 	ARFLAGS :=  $(ARFLAGS)
 #SH#ARFLAGS=" ${ARFLAGS}"
 CC = gcc
-CPP = icc -E
+CPP = gcc -E
 CFLAGS =  
 CPPFLAGS =  -I$(prefix)/include
 CXXFLAGS =  -std=c++11

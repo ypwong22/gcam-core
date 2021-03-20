@@ -1,6 +1,7 @@
 #include "util/base/include/definitions.h"
 #include <cassert>
 #include <vector>
+#include <cstdio>
 
 #include "degree_days/include/degree_days_feedback.h"
 #include "util/base/include/xml_helper.h"
@@ -9,6 +10,7 @@
 
 #include "util/base/include/gcam_fusion.hpp"
 #include "util/base/include/gcam_data_containers.h"
+#include "util/base/include/value.h"
 
 using namespace std;
 using namespace xercesc;
@@ -17,7 +19,7 @@ DegreeDaysFeedback::DegreeDaysFeedback()
   :mHDDCoef( 0 ),
    mCDDCoef( 0 ),
    mBaseYearValue( 0 )
-{ 
+{
 }
 
 DegreeDaysFeedback::~DegreeDaysFeedback() {
@@ -95,9 +97,15 @@ void DegreeDaysFeedback::calcFeedbacksAfterPeriod( Scenario* aScenario,
 						   const IClimateModel* aClimateModel,
 						   const int aPeriod )
 {
+
+  const Modeltime* modeltime = aScenario->getModeltime();
+
   // code that gets called after a period is done solving,
-  vector<FilterStep*> emissFilterSteps = parseFilterString( "world/region/sector/subsector/technology/period[YearFilter,IntLessThanEq,"+
-							    modeltime->getper_to_yr( aPeriod )+"]/ghg[NamedFilter,StringEquals,CO2]" );
+  char buffer [200];
+  sprintf(buffer, "%s%d%s", "world/region/sector/subsector/technology/period[YearFilter,IntLessThanEq,",
+	  modeltime->getper_to_yr( aPeriod ), "]/ghg[NamedFilter,StringEquals,CO2]");
+  vector<FilterStep*> emissFilterSteps = parseFilterString( buffer );
+
   // notice we can search by a year by using the YearFilter or by a GCAM model period by just using
   // an IndexFilter
   emissFilterSteps.push_back( new FilterStep( "emissions", new IndexFilter( new IntEquals( aPeriod ) ) ) );
@@ -144,38 +152,12 @@ void DegreeDaysFeedback::calcFeedbacksAfterPeriod( Scenario* aScenario,
   
 }
 
-
-struct GatherEmiss {
-  // a variable to keep the sum
-  double mEmiss = 0;
-
-  // call back methods for GCAMFusion
-  // called if the fourth template argument to GCAMFusion is true
-  template<typename T>
-  void processData( T& aData );
-
-
-  // call back methods for GCAMFusion
-  // called if the second templated argument to GCAMFusion is true
-  // we won't be using it in this example.
-  //template<typename T>
-  //void pushFilterStep( const DataType& aData );
-
-
-  // call back methods for GCAMFusion
-  // called if the third templated argument to GCAMFusion is true
-  // we won't be using it in this example.
-  //template<typename T>
-  //void popFilterStep( const DataType& aData );
-};
-
-
 template<typename T>
-void GatherEmiss::processData( T& aData ) {
+void DegreeDaysFeedback::GatherEmiss::processData( T& aData ) {
   assert( false );
 }
 template<>
-void GatherEmiss::processData<Value>( Value& aData ) {
+void DegreeDaysFeedback::GatherEmiss::processData<Value>( Value& aData ) {
   mEmiss += aData;
 }
 
@@ -191,6 +173,21 @@ void DegreeDaysFeedback::processData<Value>( Value& aData ) {
   aData *= mCurrDDScaler;
 }
 
-void DegreeDaysFeedback::pushFilterStep( INamed* const& aContainer ) {
+template<class T>
+void DegreeDaysFeedback::pushFilterStep( T* const& aContainer ) {
+  // Do nothing
+}
+
+template<>
+void DegreeDaysFeedback::pushFilterStep<INamed>( INamed* const& aContainer ) {
   std::cout << "Saw step " << aContainer->getName() << std::endl;
 }
+
+// Not working
+//void DegreeDaysFeedback::pushFilterStep( IVisitable* const& aContainer ) {
+//  std::cout << "Saw step " << aContainer->getName() << std::endl;
+//}
+//
+//void DegreeDaysFeedback::pushFilterStep( IParsable* const& aContainer ) {
+//  std::cout << "Saw step " << aContainer->getName() << std::endl;
+//}
